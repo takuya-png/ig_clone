@@ -1,2 +1,25 @@
-<h1>Favorites#index</h1>
-<p>Find me in app/views/favorites/index.html.erb</p>
+<table>
+  <% if @favorites.empty? %>
+    <h2>まだお気に入りがありません。</h2>
+  <% else %>
+    <h2>お気に入りリスト</h2>
+    <tr>
+      <th>投稿者</th>
+      <th>タイトル</th>
+      <th>本文</th>
+      <th>イメージ</th>
+    </tr>
+  <% end %>
+<% @favorites.each do |favorite| %>
+  <tr>
+    <% if favorite.user_id == current_user.id %>
+      <td><%= favorite.picture_blog.user.name %></td>
+      <td><%= favorite.picture_blog.title %></td>
+      <td><%= favorite.picture_blog.content %></td>
+      <% if favorite.picture_blog.image.url%>
+        <td><%= image_tag favorite.picture_blog.image.url %></td>
+      <% end %>
+    <% end %>      
+  </tr>
+<% end %>
+</table>
