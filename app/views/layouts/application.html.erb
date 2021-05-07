@@ -9,7 +9,23 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <header>
+    <% if logged_in? %>
+      <%= link_to "ブログ一覧へ", picture_blogs_path %>
+      <%= link_to "プロファイル", user_path(current_user.id) %>
+      <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
+    <% else %>
+      <%= link_to "新規登録", new_user_path %>
+      <%= link_to "ログイン", new_session_path %>
+    <% end %>
+  </header>
   <body>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
     <%= yield %>
   </body>
+  <footer>
+    <p>© 2029 ig_clone, Inc.</p>
+  </footer>
 </html>
